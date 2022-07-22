@@ -1,19 +1,26 @@
-{% load static %}
+{% extends "base.html" %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Home{% endblock title %}</title>
+    <title>{% block title %}Home{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
 </head>
 <body>
     {% block content %}
-    {% for post in posts %}
+    
+    <div class="home">
+        {% for post in posts %}
+        <div class="img">
         <img src="{{post.post_image.url}}" alt="">
-        <a href="{{post.get_absolute_url}}">{{post.title}}</a> <br><br>
-    {% endfor %}
+         <a href="{{post.get_absolute_url}}">{{post.title}}</a> <br><br>
+        </div>
+        {% endfor %}
+    </div>
+
     {% endblock %}
 </body>
 </html>
