@@ -18,7 +18,7 @@ class Post(models.Model):
     description = models.TextField()
     post_image = models.ImageField(upload_to = "images/", null=True, blank=True)
     slug = models.SlugField(max_length=150, null=False, unique=True, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+    category = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE, null=True, blank=True)
     author = models.ForeignKey('Author', on_delete=models.CASCADE, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
@@ -36,3 +36,11 @@ class Author(models.Model):
         return self.user.username
 
 
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+    post = models.ForeignKey(Post, related_name='comments',on_delete=models.CASCADE)
+    content = models.TextField()
+
+    def __str__(self):
+        return self.user.username

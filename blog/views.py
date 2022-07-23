@@ -1,5 +1,8 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import *
+from .forms import CommentForm
+from django.views.generic import DetailView
+
 
 def home(request):
     category = request.GET.get('category')
@@ -15,4 +18,14 @@ def home(request):
 
 def postabout(request, slug):
     post = get_object_or_404(Post, slug = slug)
-    return render(request, 'blog/about.html', {'post': post})
+    if request.method == "POST":
+        form = CommentForm
+
+        if form.is_valid():
+            com = form.save(commit=False)
+            com.post = post
+            com.save()
+
+            return redirect('about/', slug = post.slug)
+
+    return render(request, 'blog/about.html', {'post': post, 'form':form, })
