@@ -3,8 +3,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
-    pass 
-
+    is_admin = models.BooleanField(default=True)
+    is_user = models.BooleanField(default=False)
 
 class Category(models.Model):
      name = models.CharField(max_length=150, null=True, blank=True)
@@ -37,10 +37,10 @@ class Author(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     date = models.DateField(auto_now_add=True)
-    post = models.ForeignKey(Post, related_name='comments',on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='comments',on_delete=models.CASCADE, blank=True, null=True)
     content = models.TextField()
 
     def __str__(self):
-        return self.user.username
+        return self.is_admin

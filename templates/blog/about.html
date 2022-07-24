@@ -2,9 +2,18 @@
 {% block content %}
     <h1>{{post.title}}</h1>
     <h2>{{post.description}}</h2>   
+    <hr>
+    {% if not post.comments.all %}
+        add comment...
+    {% else %}
+        {% for comment in post.comments.all %}
+        <strong>{{comment.name}}, {{comment.date}}</strong>
+        {% endfor %}
+    {% endif %}
+    <hr>
     <form method="POST">
         {% csrf_token %}
-        {{form.as_table}}
+        {{form}}
         <button type='submit'>Submit</button>
     </form>
 {% endblock content %}

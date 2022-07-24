@@ -17,15 +17,17 @@ def home(request):
 
 
 def postabout(request, slug):
+    form = CommentForm
     post = get_object_or_404(Post, slug = slug)
     if request.method == "POST":
-        form = CommentForm
+        form = CommentForm(request.POST)
 
         if form.is_valid():
             com = form.save(commit=False)
             com.post = post
             com.save()
-
             return redirect('about/', slug = post.slug)
+    else:
+        form = CommentForm()
 
-    return render(request, 'blog/about.html', {'post': post, 'form':form, })
+    return render(request, 'blog/about.html', {'post': post, 'form':form})
