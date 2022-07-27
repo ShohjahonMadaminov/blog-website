@@ -1,10 +1,20 @@
+
 from django.urls import reverse
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
 class User(AbstractUser):
-    is_admin = models.BooleanField(default=True)
-    is_user = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    username = models.CharField(max_length=50)
+    email = models.EmailField(max_length=70, null=True, unique=True)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+    def __str__(self):
+        return self.username
+
 
 class Category(models.Model):
      name = models.CharField(max_length=150, null=True, blank=True)
@@ -37,10 +47,10 @@ class Author(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     date = models.DateField(auto_now_add=True)
-    post = models.ForeignKey(Post, related_name='comments',on_delete=models.CASCADE, blank=True, null=True)
+    post = models.ForeignKey(Post, related_name='comments',on_delete=models.CASCADE)
     content = models.TextField()
 
     def __str__(self):
-        return self.is_admin
+        return f'user: {self.user.username} | post: {self.post.title}'

@@ -7,7 +7,8 @@
         add comment...
     {% else %}
         {% for comment in post.comments.all %}
-        <strong>{{comment.name}}, {{comment.date}}</strong>
+        <strong>{{comment.user}}, {{comment.date}}</strong><br>
+        <p>{{comment.content}}</p>
         {% endfor %}
     {% endif %}
     <hr>

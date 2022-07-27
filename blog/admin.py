@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from blog.models import Author, Category, Post, Comment, User
 
 class PostAdmin(admin.ModelAdmin):
