@@ -15,6 +15,9 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+    def get_absolute_url(self):
+        return reverse('blog:home')
+
 
 class Category(models.Model):
      name = models.CharField(max_length=150, null=True, blank=True)
@@ -54,3 +57,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'user: {self.user.username} | post: {self.post.title}'
+
+    def get_absolute_url(self):
+        return reverse('blog:write_comment', kwargs={'slug':self.slug})

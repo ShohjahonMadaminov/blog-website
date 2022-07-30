@@ -1,0 +1,8 @@
+{% block content %}
+    <h3>Fikr bildirish</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{form}}
+        <button type='submit'>Submit</button>
+    </form>
+{% endblock content %}

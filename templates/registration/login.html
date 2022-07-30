@@ -1,6 +1,19 @@
+{% block content %}
 <h2>Login</h2>
 <form method="post">
     {% csrf_token %}
-    {{form.as_p}}
+    <!-- username input -->
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Email po'chtangizni kiriting">
+    </div>
+    <br>
+    <!-- password input -->
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Parolni kiriting">
+    </div>
+    <br>
     <button type='submit'>Login</button>
 </form>
+{% endblock content %}

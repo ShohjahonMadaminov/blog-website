@@ -4,6 +4,7 @@
     {% for field in form %}
         {{field.label}}
         {{field}}
+        {{field.get_absolute_url}}
     {% endfor %}
     <button type='submit'>Registor</button>
 </form>
